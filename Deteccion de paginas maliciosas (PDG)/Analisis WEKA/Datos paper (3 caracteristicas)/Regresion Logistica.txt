@@ -1,0 +1,165 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4
+Relation:     datos_completos_paper-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R1
+Instances:    633
+Attributes:   4
+              URL_LENGTH
+              SERVER
+              DURATION
+              TIPO
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Logistic Regression with ridge parameter of 1.0E-8
+Coefficients...
+                                                    Class
+Variable                                          MALIGNA
+=========================================================
+URL_LENGTH                                        -0.0458
+SERVER=APACHE                                      7.6431
+SERVER=NGINX                                       8.6656
+SERVER=PWS                                       223.9602
+SERVER=MARRAKESH 1.12.2                           26.6651
+SERVER=CLOUDFLARE-NGINX                            8.4635
+SERVER=MICROSOFT-HTTPAPI                           6.3844
+SERVER=GSE                                       -12.6058
+SERVER=OPENRESTY                                 -41.3692
+SERVER=NONE                                       -9.8536
+SERVER=MICROSOFT-IIS                             -13.8589
+SERVER=MW2180.CODFW.WMNET                        -10.5317
+SERVER=MW2255.CODFW.WMNET                        -13.6283
+SERVER=KHL                                       -67.2592
+SERVER=YOUTUBEFRONTEND                           -24.7387
+SERVER=LIGHTTPD                                     -7.98
+SERVER=294                                        -8.4334
+SERVER=LITESPEED                                 -12.8354
+SERVER=TSA_C                                     -65.9942
+SERVER=NGINX + PHUSION PASSENGER                 -13.2734
+SERVER=MW2110.CODFW.WMNET                        -10.7046
+SERVER=APACHE-COYOTE                             -10.4139
+SERVER=MW2114.CODFW.WMNET                        -62.9474
+SERVER=ATS                                       -14.2813
+SERVER=MW2107.CODFW.WMNET                        -12.8455
+SERVER=VARNISH                                   -13.0302
+SERVER=ROXEN                                     -11.2531
+SERVER=MW2109.CODFW.WMNET                        -16.1243
+SERVER=MW2190.CODFW.WMNET                        -12.8227
+SERVER=MW2224.CODFW.WMNET                        -10.6777
+SERVER=SQUID                                      -9.4411
+SERVER=MW2101.CODFW.WMNET                        -12.9829
+SERVER=SERVER                                     -9.5549
+SERVER=MW2185.CODFW.WMNET                        -13.9481
+SERVER=MW2239.CODFW.WMNET                        -12.6843
+SERVER=SSWS                                      -31.6621
+SERVER=SUCURI                                    -10.5767
+SERVER=DPS                                         -46.24
+SERVER=MW2241.CODFW.WMNET                        -13.9767
+SERVER=MW2097.CODFW.WMNET                        -12.7947
+SERVER=MW2177.CODFW.WMNET                         -8.5642
+SERVER=DMS                                        -8.4117
+SERVER=MW2172.CODFW.WMNET                        -10.1889
+SERVER=WWW.LEXISNEXIS.COM  9999                   -9.6653
+SERVER=BARISTA                                   -12.8943
+SERVER=MW2113.CODFW.WMNET                         -9.5215
+SERVER=MW2230.CODFW.WMNET                        -12.4966
+SERVER=MW2197.CODFW.WMNET                         -9.0657
+SERVER=NGINX (OPENBSD)                           -13.4593
+SERVER=MW2228.CODFW.WMNET                        -11.5604
+SERVER=MW2233.CODFW.WMNET                        -12.6427
+SERVER=MW2165.CODFW.WMNET                        -12.7288
+SERVER=ZOPE                                      -12.4599
+SERVER=MI                                        -10.5721
+DURATION                                                0
+Intercept                                         -7.1768
+
+
+Odds Ratios...
+                                                    Class
+Variable                                          MALIGNA
+=========================================================
+URL_LENGTH                                         0.9552
+SERVER=APACHE                                   2086.1248
+SERVER=NGINX                                    5799.8368
+SERVER=PWS                          1.8393757083550376E97
+SERVER=MARRAKESH 1.12.2             3.8064760663769275E11
+SERVER=CLOUDFLARE-NGINX                         4738.5475
+SERVER=MICROSOFT-HTTPAPI                         592.5103
+SERVER=GSE                                              0
+SERVER=OPENRESTY                                        0
+SERVER=NONE                                        0.0001
+SERVER=MICROSOFT-IIS                                    0
+SERVER=MW2180.CODFW.WMNET                               0
+SERVER=MW2255.CODFW.WMNET                               0
+SERVER=KHL                                              0
+SERVER=YOUTUBEFRONTEND                                  0
+SERVER=LIGHTTPD                                    0.0003
+SERVER=294                                         0.0002
+SERVER=LITESPEED                                        0
+SERVER=TSA_C                                            0
+SERVER=NGINX + PHUSION PASSENGER                        0
+SERVER=MW2110.CODFW.WMNET                               0
+SERVER=APACHE-COYOTE                                    0
+SERVER=MW2114.CODFW.WMNET                               0
+SERVER=ATS                                              0
+SERVER=MW2107.CODFW.WMNET                               0
+SERVER=VARNISH                                          0
+SERVER=ROXEN                                            0
+SERVER=MW2109.CODFW.WMNET                               0
+SERVER=MW2190.CODFW.WMNET                               0
+SERVER=MW2224.CODFW.WMNET                               0
+SERVER=SQUID                                       0.0001
+SERVER=MW2101.CODFW.WMNET                               0
+SERVER=SERVER                                      0.0001
+SERVER=MW2185.CODFW.WMNET                               0
+SERVER=MW2239.CODFW.WMNET                               0
+SERVER=SSWS                                             0
+SERVER=SUCURI                                           0
+SERVER=DPS                                              0
+SERVER=MW2241.CODFW.WMNET                               0
+SERVER=MW2097.CODFW.WMNET                               0
+SERVER=MW2177.CODFW.WMNET                          0.0002
+SERVER=DMS                                         0.0002
+SERVER=MW2172.CODFW.WMNET                               0
+SERVER=WWW.LEXISNEXIS.COM  9999                    0.0001
+SERVER=BARISTA                                          0
+SERVER=MW2113.CODFW.WMNET                          0.0001
+SERVER=MW2230.CODFW.WMNET                               0
+SERVER=MW2197.CODFW.WMNET                          0.0001
+SERVER=NGINX (OPENBSD)                                  0
+SERVER=MW2228.CODFW.WMNET                               0
+SERVER=MW2233.CODFW.WMNET                               0
+SERVER=MW2165.CODFW.WMNET                               0
+SERVER=ZOPE                                             0
+SERVER=MI                                               0
+DURATION                                                1
+
+
+Time taken to build model: 0.06 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         535               84.5182 %
+Incorrectly Classified Instances        98               15.4818 %
+Kappa statistic                          0.2535
+Mean absolute error                      0.1964
+Root mean squared error                  0.3186
+Relative absolute error                 70.2458 %
+Root relative squared error             85.3309 %
+Total Number of Instances              633     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,217    0,028    0,605      0,217    0,319      0,296    0,854     0,563     MALIGNA
+                 0,972    0,783    0,861      0,972    0,913      0,296    0,854     0,967     BENIGNA
+Weighted Avg.    0,845    0,657    0,818      0,845    0,813      0,296    0,854     0,899     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  23  83 |   a = MALIGNA
+  15 512 |   b = BENIGNA
+

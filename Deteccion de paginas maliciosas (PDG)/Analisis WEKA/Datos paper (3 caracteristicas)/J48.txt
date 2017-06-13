@@ -1,0 +1,119 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.trees.J48 -C 0.25 -M 2
+Relation:     datos_completos_paper-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R1
+Instances:    633
+Attributes:   4
+              URL_LENGTH
+              SERVER
+              DURATION
+              TIPO
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+J48 pruned tree
+------------------
+
+DURATION <= 1158306
+|   DURATION <= 625035: MALIGNA (50.0)
+|   DURATION > 625035
+|   |   SERVER = APACHE
+|   |   |   DURATION <= 1087542: BENIGNA (6.0)
+|   |   |   DURATION > 1087542
+|   |   |   |   URL_LENGTH <= 39: MALIGNA (2.0)
+|   |   |   |   URL_LENGTH > 39: BENIGNA (3.0/1.0)
+|   |   SERVER = NGINX
+|   |   |   URL_LENGTH <= 44: MALIGNA (28.0)
+|   |   |   URL_LENGTH > 44
+|   |   |   |   URL_LENGTH <= 47: BENIGNA (2.0)
+|   |   |   |   URL_LENGTH > 47: MALIGNA (5.0/1.0)
+|   |   SERVER = PWS: MALIGNA (1.0)
+|   |   SERVER = MARRAKESH 1.12.2: MALIGNA (1.0)
+|   |   SERVER = CLOUDFLARE-NGINX: MALIGNA (4.0/1.0)
+|   |   SERVER = MICROSOFT-HTTPAPI: BENIGNA (1.0)
+|   |   SERVER = GSE: MALIGNA (0.0)
+|   |   SERVER = OPENRESTY: MALIGNA (0.0)
+|   |   SERVER = NONE: BENIGNA (1.0)
+|   |   SERVER = MICROSOFT-IIS: BENIGNA (1.0)
+|   |   SERVER = MW2180.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2255.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = KHL: MALIGNA (0.0)
+|   |   SERVER = YOUTUBEFRONTEND: BENIGNA (1.0)
+|   |   SERVER = LIGHTTPD: MALIGNA (0.0)
+|   |   SERVER = 294: MALIGNA (0.0)
+|   |   SERVER = LITESPEED: BENIGNA (1.0)
+|   |   SERVER = TSA_C: MALIGNA (0.0)
+|   |   SERVER = NGINX + PHUSION PASSENGER: MALIGNA (0.0)
+|   |   SERVER = MW2110.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = APACHE-COYOTE: MALIGNA (0.0)
+|   |   SERVER = MW2114.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = ATS: MALIGNA (0.0)
+|   |   SERVER = MW2107.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = VARNISH: MALIGNA (0.0)
+|   |   SERVER = ROXEN: MALIGNA (0.0)
+|   |   SERVER = MW2109.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2190.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2224.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = SQUID: MALIGNA (0.0)
+|   |   SERVER = MW2101.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = SERVER: MALIGNA (0.0)
+|   |   SERVER = MW2185.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2239.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = SSWS: MALIGNA (0.0)
+|   |   SERVER = SUCURI: MALIGNA (0.0)
+|   |   SERVER = DPS: MALIGNA (0.0)
+|   |   SERVER = MW2241.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2097.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2177.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = DMS: MALIGNA (0.0)
+|   |   SERVER = MW2172.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = WWW.LEXISNEXIS.COM  9999: MALIGNA (0.0)
+|   |   SERVER = BARISTA: MALIGNA (0.0)
+|   |   SERVER = MW2113.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2230.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2197.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = NGINX (OPENBSD): MALIGNA (0.0)
+|   |   SERVER = MW2228.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2233.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = MW2165.CODFW.WMNET: MALIGNA (0.0)
+|   |   SERVER = ZOPE: MALIGNA (0.0)
+|   |   SERVER = MI: MALIGNA (0.0)
+DURATION > 1158306
+|   DURATION <= 19650352: BENIGNA (501.0/2.0)
+|   DURATION > 19650352
+|   |   DURATION <= 20412153: BENIGNA (11.0)
+|   |   DURATION > 20412153: MALIGNA (14.0)
+
+Number of Leaves  : 	61
+
+Size of the tree : 	70
+
+
+Time taken to build model: 0.01 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         608               96.0506 %
+Incorrectly Classified Instances        25                3.9494 %
+Kappa statistic                          0.863 
+Mean absolute error                      0.0455
+Root mean squared error                  0.1791
+Relative absolute error                 16.2817 %
+Root relative squared error             47.9709 %
+Total Number of Instances              633     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,925    0,032    0,852      0,925    0,887      0,864    0,964     0,909     MALIGNA
+                 0,968    0,075    0,985      0,968    0,976      0,864    0,964     0,983     BENIGNA
+Weighted Avg.    0,961    0,068    0,962      0,961    0,961      0,864    0,964     0,971     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  98   8 |   a = MALIGNA
+  17 510 |   b = BENIGNA
+

@@ -1,0 +1,162 @@
+---
+title: "Entrenamiento de datos 2"
+author: "Melisa Garcia P y Jose Luis Osorio Q"
+date: "May 6, 2017"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#matriz_datos <- read.csv("matriz_datos.csv", sep=",", comment.char = "#")
+head(matriz_datos)
+matriz_datos <- mutate_each(matriz_datos, funs(toupper))
+matriz_datos <- na.omit(matriz_datos)
+
+```
+
+
+```{r}
+# BINARIZAR CACHE CONTROL
+
+ccmd <- cSplit(melt(matriz_datos[c(1,6)], id.vars ="URL"), "value", ",", "long")
+
+library(data.table)
+setDT(ccmd)[, c(levels(ccmd$value), "value") := 
+             c(lapply(levels(value), function(x) as.integer(x == value)), .(NULL))]
+
+ccmd <- ccmd[,-2]
+ccmd <- ccmd[, lapply(.SD,sum), by=URL]
+
+matriz_datos <- merge(matriz_datos, ccmd, all = TRUE)
+matriz_datos <- matriz_datos[,-6]
+```
+
+```{r}
+library(reshape2)
+library(splitstackshape)
+library(dplyr)
+
+# SEPARACION DE SERVER (SOLO EL NOMBRE)
+matriz_datos$SERVER <- sapply(strsplit(matriz_datos$SERVER,"/"), `[`, 1)
+matriz_datos$OTHER_SERVER_ATTRIBUTES <- sapply(strsplit(matriz_datos$SERVER,"/"), `[`, 2)
+matriz_datos <- matriz_datos[,-86]
+```
+
+
+```{r}
+matriz_datos$URL_LENGTH <- as.numeric(matriz_datos$URL_LENGTH)
+matriz_datos$NUMBER_SPECIAL_CHARACTERS <- as.numeric(matriz_datos$NUMBER_SPECIAL_CHARACTERS)
+matriz_datos$CONTENT_LENGTH <- as.numeric(matriz_datos$CONTENT_LENGTH)
+
+matriz_datos$TCP_CONVERSATION_EXCHANGE <- as.numeric(matriz_datos$TCP_CONVERSATION_EXCHANGE)
+matriz_datos$DIST_REMOTE_TCP_PORT <- as.numeric(matriz_datos$DIST_REMOTE_TCP_PORT)
+matriz_datos$REMOTE_IPS <- as.numeric(matriz_datos$REMOTE_IPS)
+matriz_datos$APP_BYTES <- as.numeric(matriz_datos$APP_BYTES)
+matriz_datos$UDP_PACKETS <- as.numeric(matriz_datos$UDP_PACKETS)
+matriz_datos$TCP_URG_PACKETS <- as.numeric(matriz_datos$TCP_URG_PACKETS)
+matriz_datos$SOURCE_APP_PACKETS <- as.numeric(matriz_datos$SOURCE_APP_PACKETS)
+matriz_datos$REMOTE_APP_PACKETS <- as.numeric(matriz_datos$REMOTE_APP_PACKETS)
+matriz_datos$SOURCE_APP_BYTES <- as.numeric(matriz_datos$SOURCE_APP_BYTES)
+matriz_datos$DNS_QUERY_TIMES <- as.numeric(matriz_datos$DNS_QUERY_TIMES)
+matriz_datos$REMOTE_APP_BYTES <- as.numeric(matriz_datos$REMOTE_APP_BYTES)
+matriz_datos$APP_PACKETS <- as.numeric(matriz_datos$APP_PACKETS)
+```
+
+
+```{r}
+clasificacion <- matriz_datos$TIPO
+clasificacion <- data.frame(clasificacion)
+matriz_datos <- matriz_datos[,-24]
+
+
+```
+
+```{r}
+# NORMALIZACION DE DATOS NUMERICOS EN LA MATRIZ APP BENIGNO
+matriz_datos.n <- matriz_datos
+matriz_datos.n[,c(2,3,6)] <- scale(matriz_datos.n[,c(2,3,6)])
+matriz_datos.n[,c(12:23)] <- scale(matriz_datos[,c(12:23)])
+matriz_datos.n <- matriz_datos.n[,-17]
+# ELIMINACION DE CONSTANTES
+library(caret)
+
+matriz_datos.n <- matriz_datos.n[,-9]
+matriz_datos.n <- matriz_datos.n[,-9]
+matriz_datos.n <- matriz_datos.n[,-9]
+
+URL <- matriz_datos.n$URL
+URL<- data.frame(URL)
+#matriz_datos.n <- matriz_datos.n[,-1] #Despues de haber quitado la posicion 9 las tres veces, se descomenta este y se corre
+
+```
+
+```{r}
+is.constant = function(x) all(x[1] == x)
+constantes = sapply(matriz_datos.n, is.constant)
+matriz_datos.n = matriz_datos.n[,!constantes]
+
+
+
+# BINARIZAR VARIABLES CATEGORICAS
+dummifica2 = dummyVars( ~ ., data = matriz_datos.n[2:ncol(matriz_datos.n)])
+matriz_datos.n = predict(dummifica2, newdata = matriz_datos.n)
+#URL <- matriz_datos$URL
+
+#matriz_datos.n <- data.frame(URL,matriz_datos.n)
+
+matriz_datos.n <- data.frame(matriz_datos.n, clasificacion)
+
+head(matriz_datos.n)
+
+matriz_datos_entrenamiento<- matriz_datos.n
+
+```
+
+
+```{r}
+#SVM
+train_i <- createFolds(matriz_datos_entrenamiento$clasificacion, k=15)
+svmFit <- train(clasificacion ~., method = "svmLinear", data = matriz_datos_entrenamiento, tuneLength = 10,trControl = trainControl(method = "cv", indexOut = train_i))
+svmFit
+
+confusionMatrix(svmFit)
+
+```
+
+
+```{r}
+#REGGRESION LOGISTICA 
+train_control<- trainControl(method = "cv", number = 10)
+modl<- train(clasificacion~.,data=matriz_datos_entrenamiento, trControl= train_control, method="glm", family= binomial() )
+modl
+
+confusionMatrix(modl)
+
+```
+
+
+```{r}
+#NAIVE BAYES
+tune.control <- tune.control(random =F, nrepeat=1,sampling=c("cross"),sampling.aggregate=mean, cross=10, best.model=T, performances=T)
+
+model <- naiveBayes(clasificacion~., matriz_datos_entrenamiento, tune.control) 
+pred <- predict(model, matriz_datos_entrenamiento) 
+table(pred, matriz_datos_entrenamiento$clasificacion) 
+#chisq.test(datosUnidos_Fila_app$clasificacion, pred) 
+
+confusionMatrix(pred, matriz_datos_entrenamiento$clasificacion)
+
+```
+
+```{r}
+# J48
+
+
+
+
+```
+
+

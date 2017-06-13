@@ -1,0 +1,113 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMO -C 1.0 -L 0.001 -P 1.0E-12 -N 0 -V -1 -W 1 -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007" -calibrator "weka.classifiers.functions.Logistic -R 1.0E-8 -M -1 -num-decimal-places 4"
+Relation:     datos_completos_paper-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R1
+Instances:    633
+Attributes:   4
+              URL_LENGTH
+              SERVER
+              DURATION
+              TIPO
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMO
+
+Kernel used:
+  Linear Kernel: K(x,y) = <x,y>
+
+Classifier for classes: MALIGNA, BENIGNA
+
+BinarySMO
+
+Machine linear: showing attribute weights, not support vectors.
+
+         0.0277 * (normalized) URL_LENGTH
+ +       0.0411 * (normalized) SERVER=APACHE
+ +       0.0376 * (normalized) SERVER=NGINX
+ +      -1      * (normalized) SERVER=PWS
+ +      -1      * (normalized) SERVER=MARRAKESH 1.12.2
+ +       0.0377 * (normalized) SERVER=CLOUDFLARE-NGINX
+ +       0.044  * (normalized) SERVER=MICROSOFT-HTTPAPI
+ +       0.0449 * (normalized) SERVER=GSE
+ +       0.0413 * (normalized) SERVER=OPENRESTY
+ +       0.0456 * (normalized) SERVER=NONE
+ +       0.0419 * (normalized) SERVER=MICROSOFT-IIS
+ +       0.0319 * (normalized) SERVER=MW2180.CODFW.WMNET
+ +       0.0365 * (normalized) SERVER=MW2255.CODFW.WMNET
+ +       0.0387 * (normalized) SERVER=KHL
+ +       0.0452 * (normalized) SERVER=YOUTUBEFRONTEND
+ +       0.0334 * (normalized) SERVER=LIGHTTPD
+ +       0.034  * (normalized) SERVER=294
+ +       0.0383 * (normalized) SERVER=LITESPEED
+ +       0.0394 * (normalized) SERVER=TSA_C
+ +       0.0399 * (normalized) SERVER=NGINX + PHUSION PASSENGER
+ +       0.0359 * (normalized) SERVER=MW2110.CODFW.WMNET
+ +       0.0403 * (normalized) SERVER=APACHE-COYOTE
+ +       0.0391 * (normalized) SERVER=MW2114.CODFW.WMNET
+ +       0.0444 * (normalized) SERVER=ATS
+ +       0.0378 * (normalized) SERVER=MW2107.CODFW.WMNET
+ +       0.0379 * (normalized) SERVER=VARNISH
+ +       0.0336 * (normalized) SERVER=ROXEN
+ +       0.0384 * (normalized) SERVER=MW2109.CODFW.WMNET
+ +       0.0385 * (normalized) SERVER=MW2190.CODFW.WMNET
+ +       0.035  * (normalized) SERVER=MW2224.CODFW.WMNET
+ +       0.035  * (normalized) SERVER=SQUID
+ +       0.0392 * (normalized) SERVER=MW2101.CODFW.WMNET
+ +       0.0375 * (normalized) SERVER=SERVER
+ +       0.0379 * (normalized) SERVER=MW2185.CODFW.WMNET
+ +       0.0404 * (normalized) SERVER=MW2239.CODFW.WMNET
+ +       0.0409 * (normalized) SERVER=SSWS
+ +       0.0364 * (normalized) SERVER=SUCURI
+ +       0.0408 * (normalized) SERVER=DPS
+ +       0.0357 * (normalized) SERVER=MW2241.CODFW.WMNET
+ +       0.0406 * (normalized) SERVER=MW2097.CODFW.WMNET
+ +       0.0386 * (normalized) SERVER=MW2177.CODFW.WMNET
+ +       0.0393 * (normalized) SERVER=DMS
+ +       0.0403 * (normalized) SERVER=MW2172.CODFW.WMNET
+ +       0.0389 * (normalized) SERVER=WWW.LEXISNEXIS.COM  9999
+ +       0.043  * (normalized) SERVER=BARISTA
+ +       0.0403 * (normalized) SERVER=MW2113.CODFW.WMNET
+ +       0.0415 * (normalized) SERVER=MW2230.CODFW.WMNET
+ +       0.0406 * (normalized) SERVER=MW2197.CODFW.WMNET
+ +       0.043  * (normalized) SERVER=NGINX (OPENBSD)
+ +       0.0429 * (normalized) SERVER=MW2228.CODFW.WMNET
+ +       0.0436 * (normalized) SERVER=MW2233.CODFW.WMNET
+ +       0.0443 * (normalized) SERVER=MW2165.CODFW.WMNET
+ +       0.0348 * (normalized) SERVER=ZOPE
+ +       0.0324 * (normalized) SERVER=MI
+ +      -2.0064 * (normalized) DURATION
+ +       0.9619
+
+Number of kernel evaluations: 81780 (92.708% cached)
+
+
+
+Time taken to build model: 0.19 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         541               85.466  %
+Incorrectly Classified Instances        92               14.534  %
+Kappa statistic                          0.2022
+Mean absolute error                      0.1453
+Root mean squared error                  0.3812
+Relative absolute error                 51.9788 %
+Root relative squared error            102.0979 %
+Total Number of Instances              633     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,132    0,000    1,000      0,132    0,233      0,335    0,566     0,277     MALIGNA
+                 1,000    0,868    0,851      1,000    0,920      0,335    0,566     0,851     BENIGNA
+Weighted Avg.    0,855    0,723    0,876      0,855    0,805      0,335    0,566     0,755     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  14  92 |   a = MALIGNA
+   0 527 |   b = BENIGNA
+

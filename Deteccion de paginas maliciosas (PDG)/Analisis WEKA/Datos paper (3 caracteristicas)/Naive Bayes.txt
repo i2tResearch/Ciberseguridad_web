@@ -1,0 +1,117 @@
+=== Run information ===
+
+Scheme:       weka.classifiers.bayes.NaiveBayes 
+Relation:     datos_completos_paper-weka.filters.unsupervised.attribute.Remove-R1-weka.filters.unsupervised.attribute.Remove-R1
+Instances:    633
+Attributes:   4
+              URL_LENGTH
+              SERVER
+              DURATION
+              TIPO
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+Naive Bayes Classifier
+
+                                       Class
+Attribute                            MALIGNA        BENIGNA
+                                      (0.17)         (0.83)
+============================================================
+URL_LENGTH
+  mean                                41.3626        57.1277
+  std. dev.                           12.3257        26.4196
+  weight sum                              106            527
+  precision                            2.2404         2.2404
+
+SERVER
+  APACHE                                 45.0          183.0
+  NGINX                                  56.0           99.0
+  PWS                                     2.0            1.0
+  MARRAKESH 1.12.2                        2.0            1.0
+  CLOUDFLARE-NGINX                        4.0           11.0
+  MICROSOFT-HTTPAPI                       3.0           42.0
+  GSE                                     1.0           25.0
+  OPENRESTY                               1.0            7.0
+  NONE                                    1.0           67.0
+  MICROSOFT-IIS                           1.0           23.0
+  MW2180.CODFW.WMNET                      1.0            2.0
+  MW2255.CODFW.WMNET                      1.0            2.0
+  KHL                                     1.0            2.0
+  YOUTUBEFRONTEND                         1.0           15.0
+  LIGHTTPD                                1.0            2.0
+  294                                     1.0            2.0
+  LITESPEED                               1.0            3.0
+  TSA_C                                   1.0            2.0
+  NGINX + PHUSION PASSENGER               1.0            3.0
+  MW2110.CODFW.WMNET                      1.0            2.0
+  APACHE-COYOTE                           1.0            6.0
+  MW2114.CODFW.WMNET                      1.0            2.0
+  ATS                                     1.0           13.0
+  MW2107.CODFW.WMNET                      1.0            2.0
+  VARNISH                                 1.0            2.0
+  ROXEN                                   1.0            3.0
+  MW2109.CODFW.WMNET                      1.0            2.0
+  MW2190.CODFW.WMNET                      1.0            2.0
+  MW2224.CODFW.WMNET                      1.0            2.0
+  SQUID                                   1.0            2.0
+  MW2101.CODFW.WMNET                      1.0            2.0
+  SERVER                                  1.0            3.0
+  MW2185.CODFW.WMNET                      1.0            2.0
+  MW2239.CODFW.WMNET                      1.0            4.0
+  SSWS                                    1.0            2.0
+  SUCURI                                  1.0            2.0
+  DPS                                     1.0            2.0
+  MW2241.CODFW.WMNET                      1.0            2.0
+  MW2097.CODFW.WMNET                      1.0            2.0
+  MW2177.CODFW.WMNET                      1.0            2.0
+  DMS                                     1.0            3.0
+  MW2172.CODFW.WMNET                      1.0            2.0
+  WWW.LEXISNEXIS.COM  9999                1.0            2.0
+  BARISTA                                 1.0            2.0
+  MW2113.CODFW.WMNET                      1.0            2.0
+  MW2230.CODFW.WMNET                      1.0            2.0
+  MW2197.CODFW.WMNET                      1.0            2.0
+  NGINX (OPENBSD)                         1.0            2.0
+  MW2228.CODFW.WMNET                      1.0            2.0
+  MW2233.CODFW.WMNET                      1.0            2.0
+  MW2165.CODFW.WMNET                      1.0            2.0
+  ZOPE                                    1.0            2.0
+  MI                                      1.0            2.0
+  [total]                               159.0          580.0
+
+DURATION
+  mean                          567259619.434   9884434.3473
+  std. dev.                   1454158563.2079   6490432.8834
+  weight sum                              106            527
+  precision                      7255009.6115   7255009.6115
+
+
+
+Time taken to build model: 0 seconds
+
+=== Stratified cross-validation ===
+=== Summary ===
+
+Correctly Classified Instances         541               85.466  %
+Incorrectly Classified Instances        92               14.534  %
+Kappa statistic                          0.2022
+Mean absolute error                      0.1458
+Root mean squared error                  0.378 
+Relative absolute error                 52.1458 %
+Root relative squared error            101.2341 %
+Total Number of Instances              633     
+
+=== Detailed Accuracy By Class ===
+
+                 TP Rate  FP Rate  Precision  Recall   F-Measure  MCC      ROC Area  PRC Area  Class
+                 0,132    0,000    1,000      0,132    0,233      0,335    0,903     0,714     MALIGNA
+                 1,000    0,868    0,851      1,000    0,920      0,335    0,903     0,972     BENIGNA
+Weighted Avg.    0,855    0,723    0,876      0,855    0,805      0,335    0,903     0,929     
+
+=== Confusion Matrix ===
+
+   a   b   <-- classified as
+  14  92 |   a = MALIGNA
+   0 527 |   b = BENIGNA
+
