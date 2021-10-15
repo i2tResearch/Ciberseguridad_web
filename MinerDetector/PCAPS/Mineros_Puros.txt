@@ -1,0 +1,7 @@
+Jordi Zayuelas i Muñoz
+José Suárez-Varela
+Pere Barlet-Ros
+
+Articulos: 
+- Detecting cryptocurrency miners with NetFlow/IPFIX network measurements
+- Detection of Bitcoin miners from network measurements
