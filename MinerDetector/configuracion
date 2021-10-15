@@ -1,0 +1,26 @@
+Mirar interfaces 
+cat /etc/network/interfaces
+
+Conexion de consola
+nano /etc/network/interfaces
+
+edito y desmascaro
+iface para que el host obtenga una direccion ip desde un servidor DHCP OSPF ARP EIGRP DSCP CS6 OSPF Forward Slash
+Arbol de expansión incluye
+
+ndo CDP, DTP
+
+
+
+
+apt-get install wget
+
+whath this Termshark
+
+
+https://hackertarget.com/tshark-tutorial-and-filter-examples/
+https://www.unix.com/ip-networking/222407-stop-tshark-capture.html
+
+
+
+pip install virustotal-api
