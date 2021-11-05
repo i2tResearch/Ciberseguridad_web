@@ -1,0 +1,11 @@
+[run]
+source = ./fronterapp_api/,./core/
+omit =
+    */asgi.py
+    */wsgi.py
+    */__init__.py
+    */migrations/*
+    */models/*
+    */apps.py
+    */settings.py
+    */tests/*

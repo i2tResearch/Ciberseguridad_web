@@ -1,0 +1,9 @@
+autopep8==1.5.5
+coverage==5.4
+django-debug-toolbar==3.2
+django-graphiql-debug-toolbar==0.1.4
+flake8==3.8.4
+pep8==1.7.1
+pre-commit==2.10.1
+pylint==2.7.0
+pylint-django==2.4.2

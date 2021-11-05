@@ -1,0 +1,57 @@
+exclude: ./migrations/.|./settings/.|./__init__.py|.urls.py
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v2.5.0
+      hooks:
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+          - id: check-docstring-first
+          - id: check-json
+          - id: check-yaml
+          - id: debug-statements
+          - id: detect-private-key
+          - id: name-tests-test
+            args:
+            - --django
+          - id: requirements-txt-fixer
+          - id: double-quote-string-fixer
+    - repo: https://github.com/asottile/pyupgrade
+      rev: v1.25.0
+      hooks:
+        -   id: pyupgrade
+            args: [--py37-plus]
+    - repo: https://github.com/psf/black
+      rev: stable
+      hooks:
+          - id: black
+            args: [--skip-string-normalization]
+            language_version: python3.9
+    - repo: https://github.com/asottile/reorder_python_imports
+      rev: v2.3.0
+      hooks:
+          - id: reorder-python-imports
+            args: [--py3-plus]
+    -   repo: https://gitlab.com/pycqa/flake8
+        rev: 3.8.2
+        hooks:
+        - id: flake8
+          exclude: ./models/__init__.py
+          args:
+            - --max-line-length=100
+    -   repo: https://github.com/pre-commit/mirrors-autopep8
+        rev: v1.5.2
+        hooks:
+        -   id: autopep8
+    -   repo: https://github.com/PyCQA/pydocstyle
+        rev: 4.0.1
+        hooks:
+        - id: pydocstyle
+          exclude: fronterapp_api/migrations/*
+          args:
+            - --ignore=D100,D104,D107,D203,D213,D406,D407,D413,D416
+    -   repo: https://github.com/pre-commit/mirrors-pylint
+        rev: v2.5.3
+        hooks:
+            - id: pylint
+              args:
+                - --disable=E0401,R0801

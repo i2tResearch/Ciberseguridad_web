@@ -1,0 +1,7 @@
+-   id: coverage
+    name: coverage python
+    description: run coverage
+    entry: coverage run manage.py test core fronterapp_api;
+    language: python
+    always_run: true
+    pass_filenames: false

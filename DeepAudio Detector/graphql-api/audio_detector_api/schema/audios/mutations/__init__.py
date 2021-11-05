@@ -1,0 +1,1 @@
+from .audios_resolver import AudioPredict
