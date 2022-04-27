@@ -1,0 +1,12 @@
+#!/bin/sh
+'''exec' "/home/julioce/Documentos/PDG/PDG-2/Informes y avances/Fases/Fase 2/Algorithms/Algorithms after PDG-2/PDG-2-Fase-2-ENV/bin/python3" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+
+from pip._internal.cli.main import main
+
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw?|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())

@@ -1,0 +1,16 @@
+README.rst
+setup.cfg
+setup.py
+firebase/__init__.py
+firebase/async.py
+firebase/decorators.py
+firebase/firebase.py
+firebase/firebase_token_generator.py
+firebase/jsonutil.py
+firebase/lazy.py
+python_firebase.egg-info/PKG-INFO
+python_firebase.egg-info/SOURCES.txt
+python_firebase.egg-info/dependency_links.txt
+python_firebase.egg-info/not-zip-safe
+python_firebase.egg-info/requires.txt
+python_firebase.egg-info/top_level.txt

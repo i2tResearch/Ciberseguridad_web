@@ -1,0 +1,301 @@
+---
+title: "Entrega final"
+author: "Bryan Henao, J. Steven Delgado V."
+date: "11/29/2017"
+output: html_document
+ 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r echo=FALSE}
+setwd("~/Desktop")
+library(ggplot2)
+library(corrplot)
+library(pROC)
+library(DMwR)
+library(caret)
+dataset_proyecto <- read.table("Dataset_Proyecto.csv",sep = ";",fill = TRUE ,header = TRUE)
+dataset_proyecto_tipos <- dataset_proyecto
+```
+##Descripción
+
+El dataset que presentaremos a continuación fue tomado por los estudiantes de proyecto de grado en el
+semestre 17-1, este dataset representa 1779 registros de tráfico web (filas), junto con 27 variables más
+significativas (columnas). La última variable llamada __*tipo*__, nos muestra la clasificación de si cada registro de tráfico es maligno o benigno.
+A método de ilustrar el dataset hemos tomado las 28 variables y cada una con sus medidas de tendencia
+central:
+
+```{r}
+summary(dataset_proyecto)
+```
+
+Como podemos observar, algunas columnas tienen muchos NA's en sus registros. Tomemos por ejemplo __*AVG_LOCAL_PKT_RATE*__ y __*AVG_REMOTE_PKT_RATE*__ las cuales tienen un `r round(1770/nrow(dataset_proyecto)*100, digits=2)`% de Na's, no obstante las columnas __*UDP_PACKETS*__, __*TCP_URG_PACKETS*__, están en 0, en el caso de __*CACHE_CONTROL*__, __*DURATION*__, __*CONTENT_LENGTH*__ su número de NA's oscilan entre 40% y 60%, finalmente __*WITHIN_DOMAIN*__ tiene un 84.71% de los datos en la categoría __*otros*__, debido a que la cantidad de NA's,número de 0's,la variable __*otros*__,es muy grande, procedemos a eliminar estas columnas ya que no serán relevantes en nuestro análisis estadístico, esto incluye también a todas las variables cuyos registros son fechas.
+```{r echo=FALSE}
+#Aquí borré el date, porque creo que no nos sirve de mucho. También borro las otras columnas con muchos NA's
+dataset_proyecto_tipos<-dataset_proyecto_tipos[,-c(6,7,8,9,10,11,12,17,18,23,24,25)]
+datosDuration<-dataset_proyecto[-which(is.na(dataset_proyecto$DURATION)),]
+benignasDuration<-datosDuration[which(datosDuration$TIPO=="BENIGNA"),]
+malignasDuration<-datosDuration[which(datosDuration$TIPO=="MALIGNA"),]
+avgDurationBenignas<-mean(benignasDuration$DURATION)
+avgDurationMalignas<-mean(malignasDuration$DURATION)
+durac<-data.frame("Duration"=c(avgDurationBenignas,avgDurationMalignas),"Type"=c("BENIGNA","MALIGNA"))
+```
+
+Luego de eliminar estas  columnas, quedamos con un total de `r ncol(dataset_proyecto_tipos)` columnas:
+
+```{r}
+dataset_proyecto_tipos[0,]
+```
+
+Observando ahora __*DNS_QUERY_TIMES*__ respectivamente tenemos:
+```{r echo=FALSE}
+summary(dataset_proyecto_tipos$DNS_QUERY_TIMES)
+```
+ 
+Debido a que hay pocos NA's con respecto a el número total de la muestra, podemos predecir estos reemplazando por la mediana
+
+```{r echo=FALSE}
+dataset_proyecto_tipos$DNS_QUERY_TIMES <- ifelse(is.na(dataset_proyecto_tipos$DNS_QUERY_TIMES),median(dataset_proyecto_tipos$DNS_QUERY_TIMES, na.rm = TRUE), dataset_proyecto_tipos$DNS_QUERY_TIMES)
+```
+Ahora tenemos:
+
+```{r echo=FALSE}
+summary(dataset_proyecto_tipos$DNS_QUERY_TIMES)
+
+```
+##Gráficas
+
+  
+```{r echo=FALSE}
+
+row.has.na <- apply(dataset_proyecto_tipos, 1, function(x){any(is.na(x))})
+dataset_final <- dataset_proyecto_tipos[!row.has.na,]
+dataset_final<-dataset_final[-which(dataset_final$NUMBER_SPECIAL_CHARACTERS>35),]
+
+mynamestheme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+                 legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
+                 legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"),  
+                  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+                  axis.text = element_text(family = "Courier", colour = "cornflowerblue", size = (10)))
+
+
+grafica<-ggplot(dataset_final,aes(x= dataset_final$TIPO, y=dataset_final$NUMBER_SPECIAL_CHARACTERS,fill=dataset_final$TIPO))
+
+grafica<-grafica+geom_boxplot()+ggtitle("Diagrama de cajas y bigotes\nsegún el numero de caracteres especiales")
+grafica<-grafica+labs(y="Number of special characters",x="Tipo")+mynamestheme+scale_fill_discrete(name="Tipos")
+grafica
+```
+
+```{r echo=FALSE}
+
+dataset_final<-dataset_final[-which(dataset_final$URL_LENGTH>194),]
+
+mynamestheme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+                 legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
+                 legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"),  
+                  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+                  axis.text = element_text(family = "Courier", colour = "cornflowerblue", size = (10)))
+
+
+grafica<-ggplot(dataset_final,aes(x= dataset_final$TIPO, y=dataset_final$URL_LENGTH,fill=dataset_final$TIPO))
+
+grafica<-grafica+geom_boxplot()+ggtitle("Diagrama de cajas y bigotes\nsegún la longitud URL")
+grafica<-grafica+labs(y="URL length",x="Tipo")+mynamestheme+scale_fill_discrete(name="Tipos")
+grafica
+```
+
+```{r echo=FALSE}
+
+dataset_final<-dataset_final[-which(dataset_final$TCP_CONVERSATION_EXCHANGE>50),]
+
+mynamestheme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+                 legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
+                 legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"),  
+                  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+                  axis.text = element_text(family = "Courier", colour = "cornflowerblue", size = (10)))
+
+
+grafica<-ggplot(dataset_final,aes(x= dataset_final$TIPO, y=dataset_final$TCP_CONVERSATION_EXCHANGE,fill=dataset_final$TIPO))
+
+grafica<-grafica+geom_boxplot()+ggtitle("Diagrama de cajas y bigotes\nsegún TCP conversation exchange")
+grafica<-grafica+labs(y="TCP conversation exchange",x="Tipo")+mynamestheme+scale_fill_discrete(name="Tipos")
+grafica
+```
+
+procedemos a hacer scatter plots para tratar de encontrar una correlación dadas dos variables:
+
+```{r echo=FALSE}
+mynamestheme <- theme(plot.title = element_text(family = "Helvetica", face = "bold", size = (15)), 
+                 legend.title = element_text(colour = "steelblue",  face = "bold.italic", family = "Helvetica"), 
+                 legend.text = element_text(face = "italic", colour="steelblue4",family = "Helvetica"),  
+                  axis.title = element_text(family = "Helvetica", size = (10), colour = "steelblue4"),
+                  axis.text = element_text(family = "Courier", colour = "cornflowerblue", size = (10)))
+
+grafica<-ggplot(dataset_final,aes(x=dataset_final$URL_LENGTH,y=dataset_final$NUMBER_SPECIAL_CHARACTERS))
+grafica<-grafica+geom_point(aes(colour = dataset_final$TIPO))+mynamestheme+ggtitle("Diagrama de dispersión\nsegún la longitud URL y Número de caracteres especiales")+labs(x="URL LENGTH",y="Number of special characters")
+grafica
+```
+
+Aplicamos también un correlograma:
+
+```{r echo=FALSE}
+
+datasetNums<-dataset_proyecto_tipos[,c(2,3,6,7,8,9,10,11,12,13,14,15)]
+
+mcor<- cor(datasetNums)
+head(mcor,2)
+corrplot(mcor)
+```
+
+```{r echo=FALSE}
+corrplot(mcor, method = "shade", order= "AOE", addCoef.col = "azure4", shade.col = NA)
+```
+
+
+
+```{r echo=FALSE}
+grafica<-ggplot(dataset_final,aes(dataset_final$TIPO,fill=dataset_final$TIPO))
+grafica<-grafica+geom_bar()+ggtitle("Diagrama de barras\nsegún el tipo de tráfico")
+grafica
+
+table(dataset_final$TIPO)
+prop.table(table(dataset_final$TIPO))
+
+```
+
+
+
+Como podemos observar, tenemos un dataset bastante desbalanceado, para remediar esto procedemos a utilizar SMOTE (_synthetic minority oversampling technique_)
+
+
+```{r echo=TRUE}
+
+#Aplicando SMOTE
+dataset_final_smote<- SMOTE(TIPO ~ ., dataset_final, perc.over = 600, perc.under=100)
+table(dataset_final_smote$TIPO)
+prop.table(table(dataset_final_smote$TIPO))
+
+```
+
+```{r echo=FALSE}
+grafica<-ggplot(dataset_final_smote,aes(dataset_final_smote$TIPO,fill=dataset_final_smote$TIPO))
+grafica<-grafica+geom_bar()+ggtitle("Diagrama de barras\nsegún el tipo de tráfico")
+grafica
+
+```
+
+
+Observamos pues, que hemos balanceado de una forma notoria el dataset. Procedemos a particionarlo, y luego a entrenar los algoritmo de clasificación.
+
+
+```{r echo=TRUE}
+
+set.seed(1234)
+splitIndex <- createDataPartition(dataset_final$TIPO, p = .70,
+                                  list = FALSE,
+                                  times = 1)
+trainSplit <- dataset_final[ splitIndex,]
+testSplit <- dataset_final[-splitIndex,]
+
+trainSplitSmote <- dataset_final_smote[ splitIndex,]
+testSplitSmote <- dataset_final_smote[-splitIndex,]
+
+
+```
+
+Primero, Árbol con poda:
+
+```{r echo=FALSE}
+modelos<-matrix(c(prop.table(table(dataset_final$TIPO))[1],prop.table(table(dataset_final_smote$TIPO))[2],1,1,1,1,1,1),ncol=2,byrow=TRUE)
+colnames(modelos)<-c("Sin SMOTE", "Con SMOTE")
+rownames(modelos)<-c("Baseline","?rbol poda","C 4.5","Na?ve Bayes")
+modelos<-as.table(modelos)
+
+```
+
+```{r echo=TRUE}
+
+## Arbol con poda
+library(rpart)
+set.seed(9999)
+
+#Modelo
+arbolPoda <- train(TIPO~., data = trainSplit, method = "rpart")
+predicciones <- predict(arbolPoda, newdata=testSplit)
+confusionMatrix(predicciones,testSplit$TIPO)
+modelos[2,1]<-as.numeric(data.frame(as.list(confusionMatrix(predicciones,testSplit$TIPO)$overall))[1])
+
+#Modelo con SMOTE
+arbolPodaSmote <- train(TIPO~., data = trainSplitSmote, method = "rpart")
+
+prediccionesSmote <- predict(arbolPodaSmote, newdata=testSplitSmote)
+confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)
+modelos[2,2]<-as.numeric(data.frame(as.list(confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)$overall))[1])
+
+
+```
+
+Segundo, Árbol C 4.5:
+
+```{r echo=TRUE}
+##C 4.5
+
+library(RWeka)
+set.seed(9876)
+
+c4_5<-J48(TIPO~.,data=trainSplit)
+summary(c4_5)
+predicciones<- predict(c4_5, testSplit[,-16])
+confusionMatrix(predicciones,testSplit$TIPO)
+modelos[3,1]<-as.numeric(data.frame(as.list(confusionMatrix(predicciones,testSplit$TIPO)$overall))[1])
+
+
+c4_5smote<-J48(TIPO~.,data=trainSplitSmote)
+summary(c4_5smote)
+prediccionesSmote<- predict(c4_5smote, testSplitSmote[,-16])
+confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)
+modelos[3,2]<-as.numeric(data.frame(as.list(confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)$overall))[1])
+
+```
+
+Tercero, Naïve Bayes:
+
+```{r echo=TRUE, message=F, warning=F}
+
+##Naïve Bayes
+
+set.seed(4444)
+#NB
+modelo_nb <- train(trainSplit[,-16], trainSplit$TIPO, method = "nb")
+modelo_nb
+
+class(modelo_nb$finalModel)
+predicciones <- predict(modelo_nb, testSplit[,-16])
+confusionMatrix(predicciones,testSplit$TIPO)
+modelos[4,1]<-as.numeric(data.frame(as.list(confusionMatrix(predicciones,testSplit$TIPO)$overall))[1])
+
+#NB con SMOTE
+modelo_nbSmote <- train(trainSplitSmote[,-16], trainSplitSmote$TIPO, method = "nb")
+modelo_nbSmote
+
+class(modelo_nbSmote$finalModel)
+prediccionesSmote <- predict(modelo_nbSmote, testSplitSmote[,-16])
+confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)
+modelos[4,2]<-as.numeric(data.frame(as.list(confusionMatrix(prediccionesSmote,testSplitSmote$TIPO)$overall))[1])
+
+
+```
+
+Finalmente, comparamos los modelos utilizados para seleccionar el mejor:
+
+```{r echo=TRUE}
+
+comparacionModelos<-as.data.frame.matrix(modelos)
+comparacionModelos
+
+```
+
+
+
