@@ -27,12 +27,11 @@
 
 # Cybersecurity Projects
 
-In this repository you can find cybersecurity projects focused on different areas of computer security, using different techniques and in several of them relying on data science to improve results.
+In this repository you can find cybersecurity projects oriented to resolve defensive and offensive pproblems using data science.
 
-* Deteccion de paginas maliciosas (PDG). Este es el repositorio del proyecto de grado de Melisa Garcia  y Jose Osorio.
-* Henao, B., & Prada, J. (2017). Sistema para el estudio de ciberataques web. Tesis 
+* Garcia, M, & Osorio, J. (2017).Sistema open source para la detección de páginas web maliciosas.
+* Henao, B., & Prada, J. (2017). Sistema para el estudio de ciberataques web.  
 * Campaz, B., Diaz, J., & Gutierrez, S.(2020). Método de detección de Deepfake mediante técnicas de Machine Learning. Tesis de pregrado, ingeniera de sistemas. Universidad Icesi
 * Bernal, S. (2020). Detección de cryptojacking a traves del tráfico de red usando técnicas de Machine learning
-
 
 The projects have been directed by [Christian Urcuqui](https://www.linkedin.com/in/christianurcuqui/), Andres Navarro, and Javier Cely
