@@ -1,0 +1,23 @@
+OS: Recommended the use on Kali, but works on Parrot & Ubuntu
+
+To execute the NLP-Recon tool you need to have installed on your Linux based OS the next tools pre installed
+
+
+-Shodan
+
+-TheHarvester
+
+-ExifTool
+
+-ExploitDB
+
+
+Notes: 
+
+1.To use TheHarvester ensure to add most of the api keys on the next folder of theHarvester installation ~/.config/theHarvester/api_keys.yml, this is used to enable most of the sources to search about a domain
+
+2. For some reason, Shodan is not working rlly well when is used an option from theHarvester, instead we recommend to use our implementation of Shodan directly
+
+3. To use Shodan direct tool in NLP-Recon tool, ensure you added previously your Shodan key on your Shodan using the command: shodan init YOURAPIKEY 
+
+You can get your shodan api key from their webpage, and add it on your terminal.
