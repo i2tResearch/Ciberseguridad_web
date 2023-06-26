@@ -32,6 +32,8 @@ In this repository you can find cybersecurity projects oriented to resolve defen
 * Garcia, M, & Osorio, J. (2017).Sistema open source para la detección de páginas web maliciosas.
 * Henao, B., & Prada, J. (2017). Sistema para el estudio de ciberataques web.  
 * Campaz, B., Diaz, J., & Gutierrez, S.(2020). Método de detección de Deepfake mediante técnicas de Machine Learning. Tesis de pregrado, ingeniera de sistemas. Universidad Icesi
+* Steven, J. (2019). Secure Learning para detección de Android Malware
 * Bernal, S. (2020). Detección de cryptojacking a traves del tráfico de red usando técnicas de Machine learning
+
 
 The projects have been directed by [Christian Urcuqui](https://www.linkedin.com/in/christianurcuqui/), Andres Navarro, and Javier Cely
