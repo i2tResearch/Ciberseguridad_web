@@ -1,3 +1,6 @@
+
+Download our trained model from https://drive.google.com/file/d/1l6s3jMOV8KjpiKvq21BjnQmis7T0EKp3/view
+
 OS: Recommended the use on Kali, but works on Parrot & Ubuntu
 
 To execute the NLP-Recon tool you need to have installed on your Linux based OS the next tools pre installed
